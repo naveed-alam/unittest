@@ -1,0 +1,40 @@
+name: PHPUnit Tests
+
+on: [push]
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.0' # Adjust this based on your PHP version requirements
+        extensions: mbstring, intl, curl, dom, gd, mysqli, zip, exif, intl, pcntl, pdo, sqlite, pdo_sqlite, iconv, mbstring, xml, xsl, dom, hash, openssl, igbinary, json, redis, apcu, memcached, opcache, bc, zlib, ftp, sockets, xmlreader, Xdebug, MemCache, Imagick
+
+    - name: Install PHP Extensions
+      run: |
+        sudo apt-get update
+
+    - name: Install PHPUnit
+      run: |
+        composer global require phpunit/phpunit ^9.6.0
+
+    - name: Install Composer dependencies
+      run: |
+        cd woocommerce_plugin/flex-pricing
+        composer install
+
+    - name: Check PHP Version
+      run: php -v
+
+    - name: Run PHPUnit Version
+      run: |
+        phpunit --version
+    - name: List Tests
+      run: |
+        phpunit tests
