@@ -24,11 +24,6 @@ jobs:
       run: |
         composer global require phpunit/phpunit ^9.6.0
 
-    - name: Install Composer dependencies
-      run: |
-        cd woocommerce_plugin/flex-pricing
-        composer install
-
     - name: Check PHP Version
       run: php -v
 
